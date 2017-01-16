@@ -2,5 +2,8 @@
   "name": "codeshift-sort-constructor",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "jscodeshift": "^0.3.30"
+  }
 }
