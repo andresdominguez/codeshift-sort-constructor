@@ -1,5 +1,5 @@
 describe('sort constructor', function() {
-  it('sorts constructo', function() {
+  it('sorts constructor', function() {
 
   });
 });
