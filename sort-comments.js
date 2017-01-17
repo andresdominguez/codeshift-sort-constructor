@@ -1,3 +1,8 @@
+/**
+ * Tests if a line is a param
+ * @param {string} line
+ * @return {boolean}
+ */
 const isParam = line => line.match(/\s\\*\s*@param/);
 
 /**
