@@ -34,21 +34,24 @@ const collectParams = function(lines) {
   return params;
 };
 
+const replaceCommentLines = function(params, lines) {
+  let replacingLine = params[0].start;
+
+  params
+      .sort((a, b) => paramName(a) > paramName(b))
+      .forEach(param =>
+          param.lines.forEach(line => lines[replacingLine++] = line));
+
+  return lines.map(l => l.replace(/^\s+/g, '')).join(('\n'));
+};
+
 const sortComments = comments => {
   const lines = comments.split('\n');
   const params = collectParams(lines);
   if (params.length === 0) {
     return comments;
   }
-
-  let startReplacingAt = params[0].start;
-
-  params
-      .sort((a, b) => paramName(a) > paramName(b))
-      .forEach(param =>
-          param.lines.forEach(line => lines[startReplacingAt++] = line));
-
-  return lines.map(l => l.replace(/^\s+/g, '')).join(('\n'));
+  return replaceCommentLines(params, lines);
 };
 
 module.exports = sortComments;
