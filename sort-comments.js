@@ -1,15 +1,25 @@
-const sortComments = comments => {
-  const lines = comments.split('\n');
+const isParam = line => line.match(/\s\\*\s*@param/);
+
+/**
+ * Get the param name from: @param [{type}] <paramName>
+ * @param {{lines: Array<string>}} param
+ */
+const paramName = param => {
+  return param.lines[0].match(/(?:@param\s+{.+}|@param)\s+(\w+)/).pop();
+};
+
+const collectParams = function(lines) {
   let currentParam = null;
   const params = [];
 
   lines.find((line, i) => {
-    if (line.match(/\s\\*\s*@param/)) {
+    if (isParam(line)) {
       if (currentParam) {
         params.push(currentParam);
       }
       currentParam = {start: i, lines: []};
     } else if (line.match(/\s\\*\s*@/)) {
+      // All @params should be grouped together. If you find another tag stop.
       return true;
     }
 
@@ -21,9 +31,24 @@ const sortComments = comments => {
     params.push(currentParam);
   }
 
-  console.log(params);
+  return params;
+};
 
-  return comments;
+const sortComments = comments => {
+  const lines = comments.split('\n');
+  const params = collectParams(lines);
+  if (params.length === 0) {
+    return comments;
+  }
+
+  let startReplacingAt = params[0].start;
+
+  params
+      .sort((a, b) => paramName(a) > paramName(b))
+      .forEach(param =>
+          param.lines.forEach(line => lines[startReplacingAt++] = line));
+
+  return lines.map(l => l.replace(/^\s+/g, '')).join(('\n'));
 };
 
 module.exports = sortComments;
