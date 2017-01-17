@@ -8,6 +8,11 @@ const paramName = param => {
   return param.lines[0].match(/(?:@param\s+{.+}|@param)\s+(\w+)/).pop();
 };
 
+/**
+ * Find all the params and turn then into an array of objects.
+ * @param {Array<string>} lines Raw text in the comments.
+ * @return {Array<{line: number, lines: Array<string>}>}
+ */
 const collectParams = function(lines) {
   let currentParam = null;
   const params = [];
@@ -42,7 +47,9 @@ const replaceCommentLines = function(params, lines) {
       .forEach(param =>
           param.lines.forEach(line => lines[replacingLine++] = line));
 
-  return lines.map(l => l.replace(/^\s+/g, '')).join(('\n'));
+  return lines
+          .map(l => l.replace(/^\s\s/, '')) // Remove leading spaces.
+          .join(('\n')) + '\n ';
 };
 
 const sortComments = comments => {
