@@ -11,7 +11,7 @@ module.exports = function(file, api, options) {
         // Sort param in alphabetical order.
         node.value.params.sort((a, b) => a.name > b.name);
 
-        // Now sort the comments.
+        // Sort the comments, if any.
         const constructorComments = node.comments;
         if (constructorComments && constructorComments.length) {
           node.comments[0] =
