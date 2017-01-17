@@ -1,6 +1,10 @@
 # codeshift-sort-constructor
 jscodeshift mod to sort parameters alphabetically in constructors.
 
+A mod is a modification that you can run over a lot of files using jscodeshift.
+This mod sorts the arguments in a constructor alphabetically. The @params in the
+comments are also sorted.
+
 For example:
 
 ```js
@@ -35,6 +39,7 @@ class SomeStuff {
 
 1. Download [jscodeshit](https://github.com/facebook/jscodeshift)
 1. Get this code
+1. Run the code mod
 
 ```shell
 # Download jscodeshift
