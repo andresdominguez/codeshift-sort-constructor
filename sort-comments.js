@@ -23,18 +23,19 @@ const collectParams = function(lines) {
   const params = [];
 
   lines.find((line, i) => {
-    // TODO: fix @ngInject before
     if (isParam(line)) {
       if (currentParam) {
         params.push(currentParam);
       }
       currentParam = {start: i, lines: []};
-    } else if (line.match(/\s\\*\s*@/)) {
+    } else if (line.match(/\s\\*\s*@/) && currentParam) {
       // All @params should be grouped together. If you find another tag stop.
       return true;
     }
 
-    if (currentParam && line.trim() !== '') {
+    const trimmed = line.trim();
+    const isEmpty = trimmed === '*' || trimmed === '';
+    if (currentParam && !isEmpty) {
       currentParam.lines.push(line);
     }
   });
