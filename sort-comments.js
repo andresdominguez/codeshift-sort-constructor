@@ -23,6 +23,7 @@ const collectParams = function(lines) {
   const params = [];
 
   lines.find((line, i) => {
+    // TODO: fix @ngInject before
     if (isParam(line)) {
       if (currentParam) {
         params.push(currentParam);
@@ -33,7 +34,7 @@ const collectParams = function(lines) {
       return true;
     }
 
-    if (currentParam) {
+    if (currentParam && line.trim() !== '') {
       currentParam.lines.push(line);
     }
   });
@@ -53,8 +54,8 @@ const replaceCommentLines = function(params, lines) {
           param.lines.forEach(line => lines[replacingLine++] = line));
 
   return lines
-          .map(l => l.replace(/^\s\s/, '')) // Remove leading spaces.
-          .join(('\n')) + '\n ';
+      .map(l => l.replace(/^\s\s/, '')) // Remove leading spaces.
+      .join(('\n'));
 };
 
 const sortComments = comments => {

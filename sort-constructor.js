@@ -1,9 +1,20 @@
+const sortComments = require('./sort-comments');
+
 module.exports = function(file, api, options) {
   const j = api.jscodeshift;
 
   return j(file.source)
       .find(j.MethodDefinition, {key: {name: 'constructor'}})
       .forEach(path => {
-        path.node.value.params.sort((a, b) => a.name > b.name);
+        const node = path.node;
+
+        // Sort param in alphabetical order.
+        node.value.params.sort((a, b) => a.name > b.name);
+
+        // Now sort the comments.
+        const constructorComments = node.comments;
+        if (constructorComments && constructorComments.length) {
+          node.comments[0] = j.commentBlock(sortComments(constructorComments[0].value));
+        }
       }).toSource();
 };
