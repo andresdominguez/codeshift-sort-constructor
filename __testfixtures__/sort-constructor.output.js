@@ -1,9 +1,9 @@
 class SomeStuff {
   /**
    *
+   * @param foo
    * @param goo
    * @param zoo
-   * @param foo
    */
   constructor(foo, goo, zoo) {
 
