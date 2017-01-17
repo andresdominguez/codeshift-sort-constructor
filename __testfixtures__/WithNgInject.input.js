@@ -5,6 +5,7 @@ class SomeStuff {
    * @param goo
    * @param zoo
    * @param foo
+   * @return {boolean}
    *
    */
   constructor(goo, zoo, foo) {
