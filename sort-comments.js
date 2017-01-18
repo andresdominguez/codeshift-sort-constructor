@@ -10,7 +10,7 @@ const isParam = line => line.match(/\s\\*\s*@param/);
  * @param {{lines: Array<string>}} param
  */
 const paramName = param => {
-  return param.lines[0].match(/(?:@param\s+{.+}|@param)\s+(\w+)/).pop();
+  return param.lines[0].match(/(?:@param\s+\\{.+\\}|@param)\s+(\w+)/).pop();
 };
 
 /**
@@ -63,7 +63,7 @@ const sortComments = comments => {
   const lines = comments.split('\n');
   const params = collectParams(lines);
   if (params.length === 0) {
-    return comments;
+    return null;
   }
   return replaceCommentLines(params, lines);
 };

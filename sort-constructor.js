@@ -14,8 +14,11 @@ module.exports = function(file, api, options) {
         // Sort the comments, if any.
         const constructorComments = node.comments;
         if (constructorComments && constructorComments.length) {
-          node.comments[0] =
-              j.commentBlock(sortComments(constructorComments[0].value));
+          // Null means there is nothing to sort.
+          const sorted = sortComments(constructorComments[0].value);
+          if (sorted) {
+            node.comments[0] = j.commentBlock(sorted);
+          }
         }
       }).toSource();
 };
