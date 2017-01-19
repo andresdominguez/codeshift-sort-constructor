@@ -10,7 +10,7 @@ class SomeStuff {
    * @return {boolean}
    *
    */
-  constructor(goo, zoo, opt_x, opt_m, opt_a) {
+  constructor(zoo, goo, opt_x, opt_m, opt_a) {
 
   }
 }
