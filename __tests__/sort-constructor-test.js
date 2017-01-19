@@ -6,3 +6,4 @@ defineTest(__dirname, 'sort-constructor', null, 'sort-constructor');
 defineTest(__dirname, 'sort-constructor', null, 'WithNgInject');
 defineTest(__dirname, 'sort-constructor', null, 'NoParams');
 defineTest(__dirname, 'sort-constructor', null, 'WithParamNameInNextLine');
+defineTest(__dirname, 'sort-constructor', null, 'WithOptParams');
