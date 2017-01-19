@@ -10,7 +10,12 @@ const isParam = line => line.match(/\s\\*\s*@param/);
  * @param {{lines: Array<string>}} param
  */
 const paramName = param => {
-  return param.lines[0].match(/(?:@param\s+\\{.+\\}|@param)\s+(\w+)/).pop();
+  // Merge all the lines.
+  return param.lines
+      .map(line => line.replace(/^[\s]*[*]/, ''))
+      .join('')
+      .match(/(?:@param\s+{[\w.]+}|@param)\s+(\w+)/)
+      .pop();
 };
 
 /**
