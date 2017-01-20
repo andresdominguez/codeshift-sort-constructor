@@ -11,11 +11,11 @@ const isParam = line => line.match(/\s\\*\s*@param/);
  */
 const paramName = param => {
   // Merge all the lines.
-  return param.lines
+  const match = param.lines
       .map(line => line.replace(/^[\s]*[*]/, ''))
       .join('')
-      .match(/(?:@param\s+{[\w.]+}|@param)\s+(\w+)/)
-      .pop();
+      .match(/(?:@param\s+\{.+}|@param)\s+([^\s]+)/);
+  return match ? match.pop() : ''
 };
 
 /**
