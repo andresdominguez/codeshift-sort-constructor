@@ -1,3 +1,4 @@
+const compareStrings = require('./compare-names');
 const sortComments = require('./sort-comments');
 
 const getComments = node => {
@@ -22,7 +23,7 @@ module.exports = function(file, api, options) {
         }
 
         // Sort param in alphabetical order.
-        node.value.params.sort((a, b) => a.name > b.name);
+        node.value.params.sort(compareStrings);
 
         // Sort comments. Null means there is nothing to sort.
         const sorted = sortComments(comments);

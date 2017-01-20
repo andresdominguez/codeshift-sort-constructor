@@ -1,3 +1,5 @@
+const compareNames = require('./compare-names');
+
 /**
  * Tests if a line is a param
  * @param {string} line
@@ -21,7 +23,7 @@ const paramName = param => {
 /**
  * Find all the params and turn then into an array of objects.
  * @param {Array<string>} lines Raw text in the comments.
- * @return {Array<{line: number, lines: Array<string>}>}
+ * @return {Array<{line: number, name: string, lines: Array<string>}>}
  */
 const collectParams = function(lines) {
   let currentParam = null;
@@ -48,6 +50,9 @@ const collectParams = function(lines) {
     params.push(currentParam);
   }
 
+  // Add name.
+  params.forEach(p => p.name = paramName(p));
+
   return params;
 };
 
@@ -55,7 +60,7 @@ const replaceCommentLines = function(params, lines) {
   let replacingLine = params[0].start;
 
   params
-      .sort((a, b) => paramName(a) > paramName(b))
+      .sort((a, b) => compareNames(a, b))
       .forEach(param =>
           param.lines.forEach(line => lines[replacingLine++] = line));
 
