@@ -7,4 +7,6 @@ defineTest(__dirname, 'sort-constructor', null, 'WithNgInject');
 defineTest(__dirname, 'sort-constructor', null, 'NoParams');
 defineTest(__dirname, 'sort-constructor', null, 'WithParamNameInNextLine');
 defineTest(__dirname, 'sort-constructor', null, 'NonAlphanumeric');
+
+// Ignores files without @ngInject
 defineTest(__dirname, 'sort-constructor', null, 'NoNgInject');
